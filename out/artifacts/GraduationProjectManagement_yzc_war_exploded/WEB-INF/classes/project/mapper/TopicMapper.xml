@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.mapper.TopicMapper">
+
+    <resultMap id="TopicMap" type="Topic">
+        <id property="topicID" column="topicID"/>
+        <result property="topicName" column="topicName"/>
+        <result property="start" column="start"/>
+        <result property="end" column="end"/>
+        <result property="capacity" column="capacity"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="TopicMap">
+        SELECT * FROM topic
+    </select>
+
+    <select id="findById" resultMap="TopicMap" parameterType="int">
+        SELECT * FROM topic WHERE topicID = #{topicID}
+    </select>
+
+    <insert id="add" parameterType="Topic" useGeneratedKeys="true" keyProperty="topicID">
+        INSERT INTO topic (topicName, `start`, `end`, capacity)
+        VALUES (#{topicName}, #{start}, #{end}, #{capacity})
+    </insert>
+
+    <update id="update" parameterType="Topic">
+        UPDATE topic
+        SET topicName = #{topicName}, `start` = #{start}, `end` = #{end}, capacity = #{capacity}
+        WHERE topicID = #{topicID}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM topic WHERE topicID = #{topicID}
+    </delete>
+
+    <select id="countSelected" resultType="int" parameterType="int">
+        SELECT COUNT(*) FROM stutopic WHERE topicID = #{topicID}
+    </select>
+
+</mapper>

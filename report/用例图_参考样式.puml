@@ -1,0 +1,61 @@
+@startuml
+skinparam backgroundColor #FEFEFE
+skinparam handwritten false
+
+skinparam actor {
+    BackgroundColor #FEFEFE
+    BorderColor #333333
+    ArrowColor #333333
+}
+
+skinparam usecase {
+    BackgroundColor #FEFEFE
+    BorderColor #333333
+    ArrowColor #333333
+}
+
+skinparam rectangle {
+    BackgroundColor #FEFEFE
+    BorderColor #333333
+}
+
+skinparam title {
+    FontSize 16
+    FontColor #333333
+}
+
+' 关闭阴影，保持扁平简洁
+skinparam shadowing false
+
+title 毕业设计选题管理系统用例图
+
+left to right direction
+
+actor "学生" as Student
+actor "管理员" as Admin
+
+rectangle "系统" as System {
+    usecase "选择选题" as UC_Select
+    usecase "浏览选题" as UC_Browse
+    usecase "查看我的选题" as UC_MyTopics
+    usecase "登录系统" as UC_Login
+    usecase "退出登录" as UC_Logout
+    usecase "查看选题记录" as UC_ViewRecords
+    usecase "学生管理" as UC_StudentManage
+    usecase "选题管理" as UC_TopicManage
+}
+
+' 学生关联
+Student --> UC_Select
+Student --> UC_Browse
+Student --> UC_MyTopics
+Student --> UC_Login
+Student --> UC_Logout
+
+' 管理员关联
+Admin --> UC_Login
+Admin --> UC_ViewRecords
+Admin --> UC_StudentManage
+Admin --> UC_TopicManage
+
+@enduml

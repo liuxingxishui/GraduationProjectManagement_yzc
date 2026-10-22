@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.mapper.StuTopicMapper">
+
+    <resultMap id="StuTopicMap" type="StuTopic">
+        <result property="stuID" column="stuID"/>
+        <result property="stuName" column="stuName"/>
+        <result property="topicID" column="topicID"/>
+        <result property="topicName" column="topicName"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="StuTopicMap">
+        SELECT * FROM stutopic
+    </select>
+
+    <select id="findByStuId" resultMap="StuTopicMap" parameterType="int">
+        SELECT * FROM stutopic WHERE stuID = #{stuID}
+    </select>
+
+    <select id="findByTopicId" resultMap="StuTopicMap" parameterType="int">
+        SELECT * FROM stutopic WHERE topicID = #{topicID}
+    </select>
+
+    <select id="findById" resultMap="StuTopicMap">
+        SELECT * FROM stutopic WHERE stuID = #{stuID} AND topicID = #{topicID}
+    </select>
+
+    <insert id="add" parameterType="StuTopic">
+        INSERT INTO stutopic (stuID, stuName, topicID, topicName)
+        VALUES (#{stuID}, #{stuName}, #{topicID}, #{topicName})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM stutopic WHERE stuID = #{stuID} AND topicID = #{topicID}
+    </delete>
+
+</mapper>

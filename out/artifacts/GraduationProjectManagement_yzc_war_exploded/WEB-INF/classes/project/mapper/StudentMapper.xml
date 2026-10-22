@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.mapper.StudentMapper">
+
+    <resultMap id="StudentMap" type="Student">
+        <id property="stuID" column="stuID"/>
+        <result property="stuName" column="stuName"/>
+        <result property="stuPwd" column="stuPwd"/>
+        <result property="major" column="major"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="StudentMap">
+        SELECT * FROM student
+    </select>
+
+    <select id="findById" resultMap="StudentMap" parameterType="int">
+        SELECT * FROM student WHERE stuID = #{stuID}
+    </select>
+
+    <insert id="add" parameterType="Student">
+        INSERT INTO student (stuName, stuPwd, major)
+        VALUES (#{stuName}, #{stuPwd}, #{major})
+    </insert>
+
+    <update id="update" parameterType="Student">
+        UPDATE student
+        SET stuName = #{stuName}, stuPwd = #{stuPwd}, major = #{major}
+        WHERE stuID = #{stuID}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM student WHERE stuID = #{stuID}
+    </delete>
+
+    <select id="findByIdAndName" resultMap="StudentMap">
+        SELECT * FROM student WHERE stuID = #{stuID} AND stuName = #{stuName}
+    </select>
+
+</mapper>

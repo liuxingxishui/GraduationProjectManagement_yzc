@@ -1,0 +1,63 @@
+@startuml
+
+skinparam backgroundColor #FEFEFE
+skinparam handwritten false
+skinparam shadowing false
+
+skinparam title {
+    FontSize 16
+    FontColor #333333
+}
+
+skinparam entity {
+    BackgroundColor #F5F5F5
+    BorderColor #555555
+    ArrowColor #555555
+    BorderThickness 1.2
+}
+
+skinparam header {
+    FontSize 11
+    FontColor #333333
+    FontStyle bold
+}
+
+skinparam attribute {
+    FontSize 9
+    FontColor #333333
+}
+
+title 毕业设计选题管理系统 — ER图
+
+entity "学生" as Student {
+    * stuID [PK] : integer
+    --
+    stuName : varchar
+    stuPwd : varchar
+    major : varchar
+}
+
+entity "选题" as Topic {
+    * topicID [PK] : integer
+    --
+    topicName : varchar
+    start : varchar
+    end : varchar
+    capacity : varchar
+}
+
+entity "学生选题记录" as StuTopic {
+    * stuID [PK][FK] : integer
+    * topicID [PK][FK] : integer
+    --
+    stuName : varchar
+    topicName : varchar
+}
+
+' 关系定义：学生 1 --- N 学生选题记录
+Student ||--o{ StuTopic : "1对多"
+
+' 关系定义：选题 1 --- N 学生选题记录
+Topic ||--o{ StuTopic : "1对多"
+
+@enduml

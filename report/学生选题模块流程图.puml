@@ -1,0 +1,43 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam handwritten false
+
+skinparam activity {
+    BackgroundColor #F5F5F5
+    BorderColor #666666
+    ArrowColor #333333
+    DiamondBackgroundColor #F5F5F5
+    DiamondBorderColor #666666
+    StartColor #333333
+    EndColor #333333
+}
+
+start
+:学生进入浏览选题页;
+:查看可选选题列表;
+:点击"选择选题"按钮;
+:系统检查登录状态;
+if (已登录？) then (否)
+    :提示"请先登录";
+    :跳转至登录页;
+else (是)
+    :系统检查是否已选过该选题;
+    if (已选过？) then (是)
+        :提示"不能重复选题";
+        :返回选题列表;
+    else (否)
+        :系统检查选题容量是否已满;
+        if (已满？) then (是)
+            :提示"选题已满";
+            :返回选题列表;
+        else (否)
+            :保存选题记录至数据库;
+            :更新 Session 学生信息;
+            :提示"选题成功";
+            :跳转至"我的选题"页面;
+        endif
+    endif
+endif
+stop
+
+@enduml

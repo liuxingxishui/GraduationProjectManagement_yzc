@@ -1,0 +1,36 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam handwritten false
+
+skinparam activity {
+    BackgroundColor #F5F5F5
+    BorderColor #666666
+    ArrowColor #333333
+    DiamondBackgroundColor #F5F5F5
+    DiamondBorderColor #666666
+    StartColor #333333
+    EndColor #333333
+}
+
+start
+:管理员进入学生管理页;
+if (选择操作？) then (新增/修改)
+    :填写/修改学生信息;
+    :后端表单校验;
+    if (校验通过？) then (否)
+        :提示校验失败;
+        :返回表单页;
+    else (是)
+        :调用 Service 层保存数据;
+        :提示操作成功;
+        :重定向回列表页;
+    endif
+else (删除)
+    :点击删除按钮;
+    :后端调用 Service 层删除数据;
+    :提示删除成功;
+    :重定向回列表页;
+endif
+stop
+
+@enduml

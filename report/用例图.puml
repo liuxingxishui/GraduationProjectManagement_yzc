@@ -1,0 +1,96 @@
+@startuml
+!define RECTANGLE class
+
+skinparam backgroundColor #FEFEFE
+skinparam handwritten false
+
+skinparam actor {
+    BackgroundColor #FEFEFE
+    BorderColor #333333
+    ArrowColor #333333
+}
+
+skinparam usecase {
+    BackgroundColor #E3F2FD
+    BorderColor #1976D2
+    ArrowColor #555555
+}
+
+skinparam rectangle {
+    BackgroundColor #FFFDE7
+    BorderColor #FF9800
+}
+
+skinparam package {
+    BackgroundColor #E8F5E9
+    BorderColor #4CAF50
+}
+
+left to right direction
+
+title 毕业设计选题管理系统 — 用例图
+
+actor "系统管理员\n（教师）" as Admin
+actor "学生" as Student
+
+rectangle "管理员子系统" as AdminSystem #FFF8E1 {
+    usecase "学生管理" as UC_StudentManage
+    usecase "添加学生" as UC_AddStudent
+    usecase "删除学生" as UC_DelStudent
+    usecase "修改学生" as UC_UpdateStudent
+    usecase "查询学生" as UC_QueryStudent
+    
+    usecase "选题管理" as UC_TopicManage
+    usecase "添加选题" as UC_AddTopic
+    usecase "删除选题" as UC_DelTopic
+    usecase "修改选题" as UC_UpdateTopic
+    usecase "查询选题" as UC_QueryTopic
+    
+    usecase "查看选题记录" as UC_ViewRecords
+}
+
+rectangle "学生子系统" as StudentSystem #E8F5E9 {
+    usecase "登录系统" as UC_Login
+    usecase "浏览选题" as UC_Browse
+    usecase "选择选题" as UC_Select
+    usecase "查看我的选题" as UC_MyTopics
+}
+
+' 管理员关联
+Admin --> UC_StudentManage
+Admin --> UC_TopicManage
+Admin --> UC_ViewRecords
+
+' 学生管理包含关系
+UC_StudentManage ..> UC_AddStudent : <<include>>
+UC_StudentManage ..> UC_DelStudent : <<include>>
+UC_StudentManage ..> UC_UpdateStudent : <<include>>
+UC_StudentManage ..> UC_QueryStudent : <<include>>
+
+' 选题管理包含关系
+UC_TopicManage ..> UC_AddTopic : <<include>>
+UC_TopicManage ..> UC_DelTopic : <<include>>
+UC_TopicManage ..> UC_UpdateTopic : <<include>>
+UC_TopicManage ..> UC_QueryTopic : <<include>>
+
+' 学生关联
+Student --> UC_Login
+Student --> UC_Browse
+Student --> UC_Select
+Student --> UC_MyTopics
+
+' 选择选题包含登录系统（必须先登录）
+UC_Select ..> UC_Login : <<include>>
+
+' 浏览选题扩展选择选题（浏览后可以选题）
+UC_Browse ..> UC_Select : <<extend>>
+
+legend left
+  | 符号 | 说明 |
+  |----|----|
+  | 实线箭头 | 关联关系（Actor → UseCase） |
+  | 虚线箭头 <<include>> | 包含关系（必须执行） |
+  | 虚线箭头 <<extend>> | 扩展关系（可选执行） |
+endlegend
+
+@enduml
